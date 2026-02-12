@@ -1,0 +1,74 @@
+/* Custom Color Picker */
+.color-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 6px;
+}
+
+.color-input-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    -webkit-appearance: none;
+}
+
+.color-input-swatch::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color-input-swatch::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+/* Number Input Spinner Removal */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* File Upload Button */
+.file-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.file-upload input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* Variables Guide */
+.var-guide {
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent-light);
+    font-size: 0.85rem;
+}
