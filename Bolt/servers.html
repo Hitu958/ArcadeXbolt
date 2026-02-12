@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Servers — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .server-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .server-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-card:hover {
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .server-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .server-icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="arrow-left" size="16"></i>
+                    Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link active"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Unlock generic visuals.</p>
+                <a href="premium.html" class="btn btn-primary btn-sm w-full"
+                    style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div style="margin-bottom:40px">
+                <h1 style="font-size:2rem">🖥️ <span class="gradient-text">My Servers</span></h1>
+                <p style="color:var(--text-secondary)">Select a server to manage its ArcadeX settings</p>
+            </div>
+
+            <div class="server-grid" id="server-list">
+                <!-- Populated by JS -->
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+        const guilds = Auth.getGuilds();
+        const container = document.getElementById('server-list');
+
+        if (guilds.length) {
+            container.innerHTML = guilds.map(g => {
+                const icon = g.icon
+                    ? `<img src="https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png?size=128" class="server-icon-img">`
+                    : g.name.charAt(0);
+
+                const isAdmin = (g.permissions & 0x8) === 0x8;
+                // Only show badge if admin
+                const badge = isAdmin ? `<span class="badge" style="background:rgba(16, 185, 129, 0.1);color:var(--success);margin-left:auto">Admin</span>` : '';
+
+                return `
+                <div class="server-card pop-in" onclick="selectServer('${g.id}','${(g.name || '').replace(/'/g, "\\'")}')">
+                    <div class="server-icon-wrapper">${icon}</div>
+                    <div style="flex:1">
+                        <h3 style="font-size:1.1rem;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${g.name}</h3>
+                        <p style="font-size:0.85rem;color:var(--text-secondary)">${g.id}</p>
+                    </div>
+                    ${badge}
+                </div>`;
+            }).join('');
+        } else {
+            // Show Mock Data for Demo
+            container.innerHTML = `
+                <div class="server-card pop-in" onclick="selectServer('123','My Community')">
+                    <div class="server-icon-wrapper">M</div>
+                    <div style="flex:1">
+                        <h3 style="font-size:1.1rem;margin-bottom:4px">My Community</h3>
+                        <p style="font-size:0.85rem;color:var(--text-secondary)">123456789</p>
+                    </div>
+                    <span class="badge" style="background:rgba(16, 185, 129, 0.1);color:var(--success);margin-left:auto">Admin</span>
+                </div>
+                 <div class="server-card pop-in" onclick="selectServer('456','Test Server')">
+                    <div class="server-icon-wrapper" style="background:linear-gradient(45deg, var(--accent), var(--neon-cyan))">T</div>
+                    <div style="flex:1">
+                        <h3 style="font-size:1.1rem;margin-bottom:4px">Test Server</h3>
+                        <p style="font-size:0.85rem;color:var(--text-secondary)">987654321</p>
+                    </div>
+                     <span class="badge" style="background:rgba(16, 185, 129, 0.1);color:var(--success);margin-left:auto">Admin</span>
+                </div>
+            `;
+        }
+
+        function selectServer(id, name) {
+            localStorage.setItem('arcadex_selected_server', JSON.stringify({ id, name }));
+            Utils.toast(`Selected: ${name}`, 'success');
+            setTimeout(() => window.location.href = 'dashboard.html', 500);
+        }
+    </script>
+</body>
+
+</html>

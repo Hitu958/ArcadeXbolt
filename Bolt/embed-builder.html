@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Builder — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="arrow-left" size="16"></i>
+                    Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link active"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Unlock unlimited saves.</p>
+                <a href="premium.html" class="btn btn-primary btn-sm w-full"
+                    style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div style="margin-bottom:24px">
+                <h1 style="font-size:2rem;display:flex;align-items:center;gap:12px"><i data-lucide="box-select"
+                        style="color:var(--neon-cyan)"></i> <span class="gradient-text">Embed Builder</span></h1>
+                <p style="color:var(--text-secondary)">Create, save, and send rich embeds.</p>
+            </div>
+
+            <div class="flex gap-lg builder-layout">
+                <!-- Form -->
+                <div class="card"
+                    style="flex:1;background:var(--bg-card);backdrop-filter:blur(16px);border:1px solid var(--border);position:relative;z-index:1">
+
+                    <div class="form-group">
+                        <label class="form-label">Title <span class="char-counter" id="title-count">0/256</span></label>
+                        <input type="text" id="embed-title" class="form-input" placeholder="Announcement Title"
+                            maxlength="256" oninput="updatePreview()">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description <span class="char-counter"
+                                id="desc-count">0/4096</span></label>
+                        <textarea id="embed-desc" class="form-textarea" rows="4" placeholder="What's happening?"
+                            maxlength="4096" oninput="updatePreview()"></textarea>
+                        <div id="desc-limit-warning"
+                            style="display:none;font-size:0.8rem;color:var(--danger);margin-top:4px">
+                            <i data-lucide="alert-circle" size="12"></i> Description exceeds 4096 characters!
+                        </div>
+                    </div>
+
+                    <div class="flex gap-md mb-4">
+                        <div class="w-full">
+                            <label class="form-label">Color</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="embed-color" value="#8b5cf6" class="color-input-swatch"
+                                    oninput="updatePreview()">
+                                <input type="text" class="form-input border-0 bg-transparent p-0 h-auto" value="#8b5cf6"
+                                    oninput="document.getElementById('embed-color').value=this.value;updatePreview()">
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <label class="form-label">URL (Optional)</label>
+                            <input type="url" id="embed-url" class="form-input" placeholder="https://..."
+                                oninput="updatePreview()">
+                        </div>
+                    </div>
+
+                    <div
+                        style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px;padding:12px;background:rgba(255,255,255,0.05);border-radius:8px">
+                        <strong><i data-lucide="info" size="14"></i> Pro Tip:</strong> Use variables like <span
+                            class="var-guide">{user}</span>, <span class="var-guide">{server}</span>, and <span
+                            class="var-guide">{count}</span> in your text.
+                    </div>
+
+                    <div class="flex gap-md mb-4">
+                        <div class="w-full">
+                            <label class="form-label">Author Name</label>
+                            <input type="text" id="embed-author" class="form-input" placeholder="Author"
+                                oninput="updatePreview()">
+                        </div>
+                        <div class="w-full">
+                            <label class="form-label">Thumbnail URL</label>
+                            <input type="url" id="embed-thumb" class="form-input" placeholder="https://..."
+                                oninput="updatePreview()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Image URL</label>
+                        <input type="url" id="embed-image" class="form-input" placeholder="https://..."
+                            oninput="updatePreview()">
+                    </div>
+
+                    <div class="form-group" id="footer-group">
+                        <label class="form-label" id="footer-label">Footer Text <span class="char-counter"
+                                id="footer-count">0/2048</span></label>
+                        <div class="flex gap-sm">
+                            <input type="text" id="embed-footer" class="form-input w-full" placeholder="Footer"
+                                maxlength="2048" oninput="updatePreview()">
+                            <input type="url" id="embed-footer-icon" class="form-input w-full" placeholder="Icon URL"
+                                oninput="updatePreview()">
+                        </div>
+                    </div>
+
+                    <div id="fields-container"></div>
+                    <button class="btn btn-secondary btn-sm" onclick="addField()"
+                        style="margin-top:12px;margin-bottom:24px"><i data-lucide="plus" size="16"></i> Add
+                        Field</button>
+
+                    <div class="form-group" style="margin-top:20px;border-top:1px solid var(--border);padding-top:20px">
+                        <label class="form-label">Webhook URL (for sending)</label>
+                        <input type="password" id="webhook-url" class="form-input"
+                            placeholder="https://discord.com/api/webhooks/...">
+                    </div>
+
+                    <div class="flex gap-md">
+                        <button class="btn btn-primary w-full" id="btn-send-embed" onclick="sendEmbed()"><i
+                                data-lucide="send" size="18"></i> Send</button>
+                        <button class="btn btn-secondary w-full" id="btn-save-draft" onclick="saveDraft()"><i
+                                data-lucide="save" size="18"></i> Save</button>
+                        <button class="btn btn-secondary w-full" onclick="clearEmbed()"><i data-lucide="trash-2"
+                                size="18"></i> Clear</button>
+                    </div>
+                </div>
+
+                <!-- Right Column: Preview & Saved -->
+                <div style="width:400px;display:flex;flex-direction:column;gap:32px">
+                    <!-- Preview -->
+                    <div class="card sticky-preview" style="padding:24px;background:#313338;border:none">
+                        <h4
+                            style="margin-bottom:16px;color:#dbdee1;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px">
+                            Preview</h4>
+
+                        <div class="discord-embed"
+                            style="display:flex;border-left:4px solid #8b5cf6;background:#2b2d31;padding:16px;border-radius:4px;gap:16px"
+                            id="preview-box">
+                            <div style="flex:1;min-width:0">
+                                <div class="embed-author" id="prev-author"
+                                    style="font-size:0.875rem;font-weight:600;margin-bottom:8px;display:none;align-items:center;gap:8px">
+                                </div>
+                                <div class="embed-title" id="prev-title"
+                                    style="font-size:1rem;font-weight:600;color:white;margin-bottom:8px;display:none;word-wrap:break-word;overflow-wrap:anywhere">
+                                </div>
+                                <div class="embed-desc" id="prev-desc"
+                                    style="font-size:0.875rem;color:#dbdee1;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:anywhere;margin-bottom:8px;display:none;line-height:1.375">
+                                </div>
+                                <div class="embed-fields" id="prev-fields"
+                                    style="display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:8px"></div>
+                                <div class="embed-image" id="prev-image" style="margin-top:16px;display:none"><img
+                                        src="" style="max-width:100%;border-radius:4px"></div>
+                                <div class="embed-footer" id="prev-footer"
+                                    style="font-size:0.75rem;color:#949ba4;margin-top:8px;display:none;align-items:center;gap:8px;word-wrap:break-word;overflow-wrap:anywhere">
+                                </div>
+                            </div>
+                            <div class="embed-thumb" id="prev-thumb" style="display:none"><img src=""
+                                    style="max-width:80px;max-height:80px;border-radius:4px"></div>
+                        </div>
+                    </div>
+
+                    <!-- Saved Embeds -->
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 style="font-size:1rem">Drafts & Templates</h4>
+                            <button class="btn btn-sm btn-secondary" onclick="clearAllDrafts()"
+                                style="padding:4px 8px;font-size:0.75rem">Delete All</button>
+                        </div>
+                        <div class="saved-list" id="saved-list">
+                            <!-- Populated by JS -->
+                            <p style="color:var(--text-secondary);font-size:0.9rem;text-align:center;padding:20px">No
+                                saved drafts yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+
+        // Premium footer lock
+        if (!Premium.isPremium()) {
+            const footerInput = document.getElementById('embed-footer');
+            footerInput.value = 'Sent via ArcadeX';
+            footerInput.disabled = true;
+            footerInput.style.opacity = '0.5';
+            footerInput.style.cursor = 'not-allowed';
+
+            const footerIcon = document.getElementById('embed-footer-icon');
+            footerIcon.disabled = true;
+            footerIcon.style.opacity = '0.5';
+            footerIcon.style.cursor = 'not-allowed';
+
+            // Add PRO badge to footer label
+            const footerLabel = document.getElementById('footer-label');
+            const badge = document.createElement('span');
+            badge.className = 'pro-badge';
+            badge.innerHTML = '<i data-lucide="crown" style="width:10px;height:10px"></i> PRO';
+            badge.onclick = () => Premium.showUpgradeModal('Custom Footer');
+            footerLabel.appendChild(badge);
+            lucide.createIcons();
+
+            // Click overlay for locked footer
+            footerInput.addEventListener('click', () => Premium.showUpgradeModal('Custom Footer'));
+            footerIcon.addEventListener('click', () => Premium.showUpgradeModal('Custom Footer'));
+        }
+
+        // Load drafts on init
+        renderSaved();
+        updatePreview();
+
+        function renderSaved() {
+            const drafts = Storage.get('embeds');
+            const list = document.getElementById('saved-list');
+            if (!drafts.length) {
+                list.innerHTML = '<p style="color:var(--text-secondary);font-size:0.9rem;text-align:center;padding:20px">No saved drafts yet.</p>';
+                return;
+            }
+
+            list.innerHTML = '';
+            drafts.forEach(e => {
+                const item = document.createElement('div');
+                item.className = 'saved-item';
+                item.style.padding = '12px';
+                item.style.background = 'rgba(255,255,255,0.05)';
+                item.style.borderRadius = '8px';
+                item.style.marginBottom = '8px';
+                item.style.display = 'flex';
+                item.style.justifyContent = 'space-between';
+                item.style.alignItems = 'center';
+                item.style.transition = 'all 0.2s';
+                item.style.cursor = 'pointer';
+
+                item.onmouseover = () => item.style.background = 'rgba(255,255,255,0.08)';
+                item.onmouseout = () => item.style.background = 'rgba(255,255,255,0.05)';
+
+                // Limit title length
+                const displayTitle = e.title.length > 20 ? e.title.substring(0, 20) + '...' : e.title;
+
+                item.innerHTML = `
+               <div style="cursor:pointer;flex:1" onclick="loadDraft(${e.id})">
+                   <div style="font-weight:600;font-size:0.9rem">${displayTitle || 'Untitled Draft'}</div>
+                   <div style="font-size:0.75rem;color:var(--text-secondary)">${e.date}</div>
+               </div>
+               <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); Storage.delete('embeds', ${e.id}); renderSaved();" style="padding:4px 8px;border:none;background:transparent;color:var(--text-secondary)"><i data-lucide="trash" size="14"></i></button>
+            `;
+                list.appendChild(item);
+            });
+            lucide.createIcons();
+        }
+
+        function saveDraft() {
+            const btn = document.getElementById('btn-save-draft');
+            if (btn.disabled) return;
+            // Rate Limit
+            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner"></span>';
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+            }, 3000);
+
+            const data = {
+                title: document.getElementById('embed-title').value,
+                desc: document.getElementById('embed-desc').value,
+                color: document.getElementById('embed-color').value,
+                author: document.getElementById('embed-author').value,
+                thumb: document.getElementById('embed-thumb').value,
+                image: document.getElementById('embed-image').value,
+                footer: document.getElementById('embed-footer').value,
+                footerIcon: document.getElementById('embed-footer-icon').value,
+                url: document.getElementById('embed-url').value
+            };
+
+            Storage.save('embeds', data);
+            Utils.toast('Draft saved to browser storage!', 'success');
+            renderSaved();
+        }
+
+        function loadDraft(id) {
+            const drafts = Storage.get('embeds');
+            const item = drafts.find(i => i.id === id);
+            if (item) {
+                document.getElementById('embed-title').value = item.title;
+                document.getElementById('embed-desc').value = item.desc;
+                document.getElementById('embed-color').value = item.color;
+                document.getElementById('embed-author').value = item.author;
+                document.getElementById('embed-thumb').value = item.thumb;
+                document.getElementById('embed-image').value = item.image;
+                if (Premium.isPremium()) {
+                    document.getElementById('embed-footer').value = item.footer;
+                    document.getElementById('embed-footer-icon').value = item.footerIcon || '';
+                }
+                document.getElementById('embed-url').value = item.url || '';
+                updatePreview();
+                Utils.toast('Draft loaded!', 'info');
+            }
+        }
+
+        function clearAllDrafts() {
+            if (confirm('Delete all saved drafts?')) {
+                Storage.clear('embeds');
+                renderSaved();
+            }
+        }
+
+        let fields = [];
+
+        function updatePreview() {
+            const title = document.getElementById('embed-title').value;
+            const desc = document.getElementById('embed-desc').value;
+            const color = document.getElementById('embed-color').value;
+            const author = document.getElementById('embed-author').value;
+            const image = document.getElementById('embed-image').value;
+            const thumb = document.getElementById('embed-thumb').value;
+            const footer = document.getElementById('embed-footer').value;
+
+            const prevEl = document.getElementById('preview-box');
+
+            // Title counter
+            const titleCounter = document.getElementById('title-count');
+            if (titleCounter) {
+                titleCounter.innerText = `${title.length}/256`;
+                titleCounter.className = 'char-counter' + (title.length > 230 ? (title.length >= 256 ? ' danger' : ' warn') : '');
+            }
+
+            // Desc counter
+            const descCounter = document.getElementById('desc-count');
+            const limitWarn = document.getElementById('desc-limit-warning');
+            if (descCounter) {
+                descCounter.innerText = `${desc.length}/4096`;
+                descCounter.className = 'char-counter' + (desc.length > 3800 ? (desc.length >= 4096 ? ' danger' : ' warn') : '');
+            }
+            if (desc.length > 4096) {
+                if (limitWarn) limitWarn.style.display = 'block';
+                prevEl.style.opacity = '0.5';
+            } else {
+                if (limitWarn) limitWarn.style.display = 'none';
+                prevEl.style.opacity = '1';
+            }
+
+            // Footer counter
+            const footerCounter = document.getElementById('footer-count');
+            if (footerCounter) {
+                footerCounter.innerText = `${footer.length}/2048`;
+                footerCounter.className = 'char-counter' + (footer.length > 1800 ? (footer.length >= 2048 ? ' danger' : ' warn') : '');
+            }
+
+            document.getElementById('preview-box').style.borderLeftColor = color;
+
+            // Safe Render (Text only — no innerHTML to prevent XSS)
+            const titleEl = document.getElementById('prev-title');
+            if (title) { titleEl.style.display = 'block'; titleEl.textContent = title; } else { titleEl.style.display = 'none'; }
+
+            const descEl = document.getElementById('prev-desc');
+            if (desc) { descEl.style.display = 'block'; descEl.textContent = desc; } else { descEl.style.display = 'none'; }
+
+            const authEl = document.getElementById('prev-author');
+            if (author) { authEl.style.display = 'flex'; authEl.textContent = author; } else { authEl.style.display = 'none'; }
+
+            const imgEl = document.getElementById('prev-image');
+            if (image) { imgEl.style.display = 'block'; imgEl.querySelector('img').src = image; } else { imgEl.style.display = 'none'; }
+
+            const thumbEl = document.getElementById('prev-thumb');
+            if (thumb) { thumbEl.style.display = 'block'; thumbEl.querySelector('img').src = thumb; } else { thumbEl.style.display = 'none'; }
+
+            const footEl = document.getElementById('prev-footer');
+            if (footer) { footEl.style.display = 'flex'; footEl.textContent = footer; } else { footEl.style.display = 'none'; }
+
+            // Update fields preview
+            const fieldsContainer = document.getElementById('fields-container');
+            const prevFields = document.getElementById('prev-fields');
+            prevFields.innerHTML = '';
+            const fieldRows = fieldsContainer.querySelectorAll('.flex');
+            fieldRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs.length >= 2 && (inputs[0].value || inputs[1].value)) {
+                    const fieldDiv = document.createElement('div');
+                    fieldDiv.style.cssText = 'min-width:0';
+                    fieldDiv.innerHTML = `<div style="font-size:0.8rem;font-weight:600;color:white;margin-bottom:2px;word-wrap:break-word;overflow-wrap:anywhere">${escapeHtml(inputs[0].value)}</div><div style="font-size:0.8rem;color:#dbdee1;word-wrap:break-word;overflow-wrap:anywhere">${escapeHtml(inputs[1].value)}</div>`;
+                    prevFields.appendChild(fieldDiv);
+                }
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function addField() {
+            const div = document.createElement('div');
+            div.className = 'flex gap-sm mb-2';
+            div.innerHTML = `
+          <input type="text" class="form-input" placeholder="Name" oninput="updatePreview()">
+          <input type="text" class="form-input" placeholder="Value" oninput="updatePreview()">
+          <button class="btn btn-secondary" onclick="this.parentElement.remove();updatePreview()"><i data-lucide="x" size="14"></i></button>
+       `;
+            document.getElementById('fields-container').appendChild(div);
+            lucide.createIcons();
+        }
+
+        async function sendEmbed() {
+            const btn = document.getElementById('btn-send-embed');
+            if (btn.disabled) return;
+
+            // Rate Limit
+            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner"></span>';
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+            }, 3000);
+
+            const webhookUrl = document.getElementById('webhook-url').value;
+            if (!webhookUrl) {
+                Utils.toast('Please enter a Webhook URL!', 'error');
+                return;
+            }
+
+            const embed = {
+                title: document.getElementById('embed-title').value,
+                description: document.getElementById('embed-desc').value,
+                color: parseInt(document.getElementById('embed-color').value.replace('#', ''), 16),
+                url: document.getElementById('embed-url').value,
+                timestamp: new Date().toISOString()
+            };
+
+            const author = document.getElementById('embed-author').value;
+            if (author) embed.author = { name: author };
+
+            const thumb = document.getElementById('embed-thumb').value;
+            if (thumb) embed.thumbnail = { url: thumb };
+
+            const image = document.getElementById('embed-image').value;
+            if (image) embed.image = { url: image };
+
+            const footer = document.getElementById('embed-footer').value;
+            const footerIcon = document.getElementById('embed-footer-icon').value;
+            if (footer) embed.footer = { text: footer, icon_url: footerIcon };
+
+            // Gather fields
+            const fieldsContainer = document.getElementById('fields-container');
+            const fieldRows = fieldsContainer.querySelectorAll('.flex');
+            const fields = [];
+            fieldRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs.length >= 2 && (inputs[0].value || inputs[1].value)) {
+                    fields.push({
+                        name: inputs[0].value || '\u200b',
+                        value: inputs[1].value || '\u200b',
+                        inline: false
+                    });
+                }
+            });
+            if (fields.length > 0) embed.fields = fields;
+
+            try {
+                Utils.toast('Sending message...', 'info');
+                const res = await fetch('/api/send-embed', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ webhookUrl, embed })
+                });
+
+                if (res.ok) {
+                    Utils.toast('Message Sent Successfully!', 'success');
+                } else {
+                    const err = await res.json();
+                    Utils.toast('Failed: ' + (err.details || 'Unknown error'), 'error');
+                }
+            } catch (e) {
+                console.error(e);
+                Utils.toast('Network error (Backend not running?)', 'error');
+            }
+        }
+
+        function clearEmbed() {
+            document.querySelectorAll('#embed-title, #embed-desc, #embed-author, #embed-thumb, #embed-image, #embed-url').forEach(i => i.value = '');
+            if (Premium.isPremium()) {
+                document.getElementById('embed-footer').value = '';
+                document.getElementById('embed-footer-icon').value = '';
+            }
+            document.getElementById('fields-container').innerHTML = '';
+            updatePreview();
+        }
+        // Initialize Premium Locks
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!Premium.isPremium()) {
+                const webhookInput = document.getElementById('webhook-url');
+                if (webhookInput) {
+                    webhookInput.disabled = true;
+                    webhookInput.value = '';
+                    webhookInput.placeholder = '🔒 Upgrade to Pro to use Webhooks';
+                    webhookInput.style.cursor = 'not-allowed';
+                    webhookInput.style.opacity = '0.7';
+
+                    // Optional: Add click listener to parent to show modal
+                    webhookInput.parentElement.addEventListener('click', () => {
+                        Premium.showUpgradeModal('Webhook Support');
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

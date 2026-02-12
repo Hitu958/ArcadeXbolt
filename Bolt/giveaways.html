@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giveaways — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="arrow-left" size="16"></i>
+                    Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link active"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Higher limit giveaways.</p>
+                <a href="premium.html" class="btn btn-primary btn-sm w-full"
+                    style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div style="margin-bottom:32px;display:flex;justify-content:space-between;align-items:end">
+                <div>
+                    <h1 style="font-size:2rem;margin-bottom:8px;display:flex;align-items:center;gap:12px"><i
+                            data-lucide="gift" style="color:var(--neon-pink)"></i> <span
+                            class="gradient-text">Giveaways</span></h1>
+                    <p style="color:var(--text-secondary)">Manage server giveaways and contests.</p>
+                </div>
+                <button class="btn btn-primary" onclick="Utils.toast('Settings saved!','success')"><i
+                        data-lucide="save"></i> Save Config</button>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Create Giveaway -->
+                <div class="card h-full">
+                    <div class="settings-header">
+                        <div class="settings-info">
+                            <h4><i data-lucide="plus-circle" class="mr-2"></i> Create Giveaway</h4>
+                            <p>Start a new event immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-md mb-4">
+                        <div class="form-group w-full mb-0">
+                            <label class="form-label">Prize Name</label>
+                            <input type="text" class="form-input" id="gw-prize" placeholder="e.g. Discord Nitro">
+                        </div>
+                        <div class="form-group w-full mb-0" style="max-width:120px">
+                            <label class="form-label">Winners</label>
+                            <div class="flex items-center bg-input rounded-md border border-white/10">
+                                <button class="btn btn-sm btn-secondary py-1 px-2 border-0"
+                                    onclick="adj('gw-winners',-1)">-</button>
+                                <input type="number" class="form-input text-center border-0 bg-transparent p-1"
+                                    id="gw-winners" value="1" min="1" max="50">
+                                <button class="btn btn-sm btn-secondary py-1 px-2 border-0"
+                                    onclick="adj('gw-winners',1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-md mb-4">
+                        <div class="form-group w-full mb-0">
+                            <label class="form-label">Duration</label>
+                            <div class="flex gap-sm">
+                                <input type="number" class="form-input" id="gw-dur" value="24">
+                                <select class="form-select" id="gw-dur-unit" style="width:140px">
+                                    <option value="minutes">Minutes</option>
+                                    <option value="hours" selected>Hours</option>
+                                    <option value="days">Days</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group w-full mb-0">
+                            <label class="form-label">Channel</label>
+                            <select class="form-select" id="gw-channel">
+                                <option>#giveaways</option>
+                                <option>#announcements</option>
+                                <option>#general</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description (Optional)</label>
+                        <textarea class="form-textarea" rows="3" id="gw-desc"
+                            placeholder="Good luck everyone!"></textarea>
+                    </div>
+
+                    <div class="settings-card mb-4" style="background:rgba(0,0,0,0.2)">
+                        <h4 style="font-size:0.9rem;margin-bottom:12px">Requirements</h4>
+                        <div class="grid grid-cols-2 gap-4" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                            <div class="form-group mb-0">
+                                <label class="form-label">Required Role</label>
+                                <select class="form-select" id="gw-role">
+                                    <option value="">None</option>
+                                    <option>@Member</option>
+                                    <option>@Regular</option>
+                                    <option>@VIP</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="form-label">Min Level</label>
+                                <input type="number" class="form-input" id="gw-level" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary w-full py-3" onclick="createGiveaway()">
+                        <i data-lucide="party-popper"></i> Start Giveaway
+                    </button>
+                </div>
+
+                <!-- Active Giveaways -->
+                <div>
+                    <div class="card" style="min-height:500px">
+                        <h4 style="margin-bottom:20px">Active Events</h4>
+                        <div id="active-giveaways" class="flex flex-col gap-md">
+                            <!-- Populated by JS -->
+                            <div style="text-align:center;padding:40px;color:var(--text-secondary)">
+                                <i data-lucide="gift" size="48" style="opacity:0.3;margin-bottom:16px"></i>
+                                <p>No active giveaways.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+        const giveaways = [];
+
+        function adj(id, val) {
+            const el = document.getElementById(id);
+            let v = parseInt(el.value || 0) + val;
+            if (v < 1) v = 1;
+            el.value = v;
+        }
+
+        function createGiveaway() {
+            const prize = document.getElementById('gw-prize').value;
+            if (!prize) { Utils.toast('Please enter a prize name', 'error'); return; }
+
+            const gw = {
+                id: Date.now(),
+                prize,
+                winners: document.getElementById('gw-winners').value,
+                duration: document.getElementById('gw-dur').value + ' ' + document.getElementById('gw-dur-unit').value,
+                channel: document.getElementById('gw-channel').value,
+                ends: new Date(Date.now() + 86400000).toLocaleString() // Mock end time
+            };
+
+            giveaways.unshift(gw);
+            renderGiveaways();
+            Utils.toast('Giveaway started successfully!', 'success');
+
+            // Reset
+            document.getElementById('gw-prize').value = '';
+        }
+
+        function renderGiveaways() {
+            const c = document.getElementById('active-giveaways');
+            if (!giveaways.length) {
+                c.innerHTML = `
+                    <div style="text-align:center;padding:40px;color:var(--text-secondary)">
+                        <i data-lucide="gift" size="48" style="opacity:0.3;margin-bottom:16px"></i>
+                        <p>No active giveaways.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            c.innerHTML = giveaways.map(g => `
+                <div class="settings-card" style="padding:16px;margin-bottom:0;border-left:4px solid var(--accent)">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 style="font-size:1.1rem">${g.prize}</h4>
+                        <span class="badge" style="background:rgba(139, 92, 246, 0.1);color:var(--accent-light)">${g.duration} left</span>
+                    </div>
+                    <div class="flex gap-lg text-sm text-secondary mb-3">
+                        <div class="flex items-center gap-1"><i data-lucide="users" size="14"></i> ${g.winners} Winners</div>
+                        <div class="flex items-center gap-1"><i data-lucide="hash" size="14"></i> ${g.channel}</div>
+                    </div>
+                    <div class="flex gap-sm">
+                        <button class="btn btn-secondary btn-sm w-full" onclick="Utils.toast('Ending giveaway...','info'); setTimeout(()=> { giveaways.splice(${giveaways.indexOf(g)},1); renderGiveaways(); }, 500)">End Now</button>
+                        <button class="btn btn-secondary btn-sm" onclick="Utils.toast('Rerolling winners...','success')" title="Reroll"><i data-lucide="rotate-ccw" size="14"></i></button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

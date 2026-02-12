@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcadeX — The Ultimate Discord Bot</title>
+  <meta name="description"
+    content="ArcadeX - Premium Discord Bot with free Nitro emojis, embed builder, automoderation, welcome cards, music, economy and more.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a78bfa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'></polygon></svg>">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+  <!-- Background Blobs -->
+  <div class="bg-blob" style="top:-10%;left:-10%;width:500px;height:500px;background:var(--accent);opacity:0.2"></div>
+  <div class="bg-blob" style="bottom:-10%;right:-10%;width:500px;height:500px;background:var(--neon-cyan);opacity:0.15">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" onclick="scrollToSection('hero')" class="navbar-brand">
+        <i data-lucide="zap" style="color:var(--accent);fill:var(--accent-glow)"></i>
+        ArcadeX
+      </a>
+      <div class="navbar-links">
+        <a onclick="scrollToSection('features')">Features</a>
+        <a onclick="scrollToSection('pricing')">Pricing</a>
+        <a href="https://discord.gg/" target="_blank">Support</a>
+      </div>
+      <div class="navbar-actions" id="navbar-actions">
+        <a href="dashboard.html" class="btn btn-secondary btn-sm">
+          <i data-lucide="layout-dashboard" size="18"></i>
+          Dashboard
+        </a>
+        <a href="javascript:void(0)" onclick="Auth.login()" class="btn btn-primary btn-sm">
+          <i data-lucide="log-in" size="18"></i>
+          Login
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content pop-in">
+      <div class="hero-badge"><i data-lucide="rocket" size="14"></i> Version 2.0 Now Live</div>
+      <h1>Power Up Your Server With <span class="gradient-text">ArcadeX</span></h1>
+      <p>The all-in-one Discord bot with free Nitro emojis, custom embeds, automoderation, welcome cards, music,
+        economy, and so much more.</p>
+      <div class="flex gap-md justify-center" style="margin-bottom:32px">
+        <a href="javascript:void(0)" onclick="Auth.login()" class="btn btn-primary btn-lg"
+          style="padding:12px 28px;font-size:1.05rem">
+          <i data-lucide="plus" size="20"></i> Add to Discord
+        </a>
+        <a onclick="scrollToSection('features')" class="btn btn-secondary btn-lg"
+          style="padding:12px 28px;font-size:1.05rem">Explore Features</a>
+      </div>
+      <div class="hero-stats pop-in delay-200">
+        <div class="text-center">
+          <h3 class="gradient-text" data-count="500" style="margin-bottom:0">0</h3>
+          <p style="font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary)">Servers
+          </p>
+        </div>
+        <div style="width:1px;background:var(--border)"></div>
+        <div class="text-center">
+          <h3 class="gradient-text" data-count="15000" style="margin-bottom:0">0</h3>
+          <p style="font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary)">Users</p>
+        </div>
+        <div style="width:1px;background:var(--border)"></div>
+        <div class="text-center">
+          <h3 class="gradient-text" data-count="99" style="margin-bottom:0">0%</h3>
+          <p style="font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary)">Uptime
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features" style="padding:80px 0;background:rgba(0,0,0,0.1)">
+    <div class="container">
+      <div class="text-center pop-in" style="margin-bottom:60px">
+        <h2>Packed With <span class="gradient-text">Features</span></h2>
+        <p style="font-size:1.05rem;color:var(--text-secondary);max-width:600px;margin:12px auto 0">Click on any feature
+          to try it out in the dashboard.</p>
+      </div>
+      <div class="features-grid">
+        <a href="dashboard.html" class="feature-card pop-in delay-100">
+          <i data-lucide="smile" style="color:var(--accent-light)"></i>
+          <div>
+            <h3>Free Nitro Emojis <i data-lucide="arrow-right" class="arrow" size="18"></i></h3>
+            <p>Use any emoji from any server, even animated ones — completely free. No subscription required.</p>
+          </div>
+        </a>
+        <a href="embed-builder.html" class="feature-card pop-in delay-200">
+          <i data-lucide="box" style="color:var(--neon-cyan)"></i>
+          <div>
+            <h3>Embed Builder <i data-lucide="arrow-right" class="arrow" size="18"></i></h3>
+            <p>Create stunning rich embeds with a visual builder. Set colors, images, fields, and send directly.</p>
+          </div>
+        </a>
+        <a href="automod.html" class="feature-card pop-in delay-300">
+          <i data-lucide="shield" style="color:var(--neon-pink)"></i>
+          <div>
+            <h3>Auto Moderation <i data-lucide="arrow-right" class="arrow" size="18"></i></h3>
+            <p>Advanced automod with anti-spam, word filters, raid protection, and configurable actions.</p>
+          </div>
+        </a>
+        <a href="welcome-builder.html" class="feature-card pop-in delay-100">
+          <i data-lucide="image" style="color:var(--neon-orange)"></i>
+          <div>
+            <h3>Welcome Cards <i data-lucide="arrow-right" class="arrow" size="18"></i></h3>
+            <p>Design beautiful welcome cards with custom backgrounds, text, and avatar styling.</p>
+          </div>
+        </a>
+        <a href="music.html" class="feature-card pop-in delay-200">
+          <i data-lucide="music" style="color:var(--neon-blue)"></i>
+          <div>
+            <h3>Music System <i data-lucide="arrow-right" class="arrow" size="18"></i></h3>
+            <p>High quality music playback with queue management, playlists, volume control, and filters.</p>
+          </div>
+        </a>
+        <a href="economy.html" class="feature-card pop-in delay-300">
+          <i data-lucide="coins" style="color:var(--success)"></i>
+          <div>
+            <h3>Economy <i data-lucide="arrow-right" class="arrow" size="18"></i></h3>
+            <p>Full economy with currency, daily rewards, shops, gambling, leaderboards, and robbery.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section (Merged) -->
+  <section id="pricing" style="padding: 100px 0;">
+    <div class="container">
+      <div class="text-center pop-in" style="margin-bottom:60px">
+        <h2>Simple <span class="gradient-text">Pricing</span></h2>
+        <p style="font-size:1.05rem;color:var(--text-secondary);max-width:600px;margin:12px auto 0">Unlock the full
+          potential of your server with Premium.</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Free Plan -->
+        <div class="pricing-card pop-in delay-100">
+          <div class="pricing-header">
+            <h3>Free</h3>
+            <p style="color:var(--text-secondary)">Great for small communities</p>
+          </div>
+          <div class="pricing-price">
+            $0 <span class="pricing-period">/ month</span>
+          </div>
+          <div class="pricing-features">
+            <div class="pricing-feature"><i data-lucide="check"></i> Unlimited commands</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Economy system</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Music (standard quality)</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Automod (basic)</div>
+            <div class="pricing-feature disabled" style="opacity:0.5;text-decoration:line-through"><i
+                data-lucide="x"></i> Remove ArcadeX branding</div>
+            <div class="pricing-feature disabled" style="opacity:0.5;text-decoration:line-through"><i
+                data-lucide="x"></i> Custom bot name & avatar</div>
+          </div>
+          <a href="#" class="btn btn-secondary w-full">Current Plan</a>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="pricing-card featured pop-in delay-200">
+          <div
+            style="position:absolute;top:0;right:0;background:var(--accent);color:white;padding:6px 16px;border-bottom-left-radius:var(--radius-lg);font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:1px">
+            Most Popular</div>
+          <div class="pricing-header">
+            <h3 class="gradient-text">Premium</h3>
+            <p style="color:var(--text-secondary)">For serious server owners</p>
+          </div>
+          <div class="pricing-price">
+            $2.99 <span class="pricing-period">/ month</span>
+          </div>
+          <div class="pricing-features">
+            <div class="pricing-feature"><i data-lucide="check" style="color:white"></i> <strong>Everything in
+                Free</strong></div>
+            <div class="pricing-feature"><i data-lucide="check"></i> No ArcadeX Branding</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> High Quality Music</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Custom Bot Profile</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Advanced Automod AI</div>
+          </div>
+          <a href="#" onclick="alert('Checkout coming soon!')" class="btn btn-primary w-full"
+            style="box-shadow:0 0 30px var(--accent-glow)">Upgrade Now</a>
+        </div>
+
+        <!-- Lifetime Plan -->
+        <div class="pricing-card pop-in delay-300">
+          <div class="pricing-header">
+            <h3>Lifetime</h3>
+            <p style="color:var(--text-secondary)">Pay once, keep forever</p>
+          </div>
+          <div class="pricing-price">
+            $19.99 <span class="pricing-period">/ once</span>
+          </div>
+          <div class="pricing-features">
+            <div class="pricing-feature"><i data-lucide="check"></i> <strong>Everything in Premium</strong></div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Lifetime Access</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Exclusive "Supporter" Badge</div>
+            <div class="pricing-feature"><i data-lucide="check"></i> Private Dev Channel Access</div>
+          </div>
+          <a href="#" onclick="alert('Checkout coming soon!')" class="btn btn-secondary w-full">Buy Lifetime</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:40px 0;border-top:1px solid var(--border);background:var(--bg-secondary)">
+    <div class="container">
+      <div class="flex flex-col gap-md items-center text-center">
+        <div class="navbar-brand">
+          <i data-lucide="zap" style="color:var(--accent)"></i>
+          ArcadeX
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-muted)">© 2026 ArcadeX. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <script src="js/tilt.js"></script>
+  <script src="js/mesh-bg.js"></script>
+  <script src="js/premium.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    lucide.createIcons();
+    MeshBG.init(document.body);
+
+    // Auth Check
+    if (Auth.isLoggedIn()) {
+      const user = Auth.getUser();
+      // Keep Login button but also show Dashboard
+      document.getElementById('navbar-actions').innerHTML = `
+        <a href="dashboard.html" class="btn btn-primary btn-sm">Dashboard</a>
+      `;
+    }
+
+    // Scroll Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationName = 'popIn';
+          entry.target.style.opacity = 1;
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.pop-in').forEach(el => {
+      el.style.opacity = 0;
+      observer.observe(el);
+    });
+
+    // Smooth Scroll with Offset
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        const offset = 80; // Navbar height
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = el.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // 3D Tilt Effect handled by js/tilt.js
+
+    // Counter Animation
+    const stats = document.querySelectorAll('.gradient-text[data-count]');
+    stats.forEach(stat => {
+      const target = +stat.getAttribute('data-count');
+      let count = 0;
+      const inc = target / 100;
+      const updateCount = () => {
+        count += inc;
+        if (count < target) {
+          stat.innerText = Math.ceil(count) + (stat.innerText.includes('%') ? '%' : '');
+          requestAnimationFrame(updateCount);
+        } else {
+          stat.innerText = target + (stat.innerText.includes('%') ? '%' : '');
+        }
+      };
+      updateCount();
+    });
+  </script>
+</body>
+
+</html>

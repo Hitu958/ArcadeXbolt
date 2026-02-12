@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Moderation — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="arrow-left" size="16"></i>
+                    Back</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link active"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Unlock AI moderation.</p>
+                <a href="premium.html" class="btn btn-primary btn-sm w-full"
+                    style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div class="flex justify-between items-end mb-8" style="margin-bottom:40px">
+                <div>
+                    <h1 style="font-size:2rem;margin-bottom:8px;display:flex;align-items:center;gap:12px"><i
+                            data-lucide="shield-check" style="color:var(--neon-cyan)"></i> <span
+                            class="gradient-text">Auto Moderation</span>
+                    </h1>
+                    <p style="color:var(--text-secondary)">Configure automated filters and protection rules.</p>
+                </div>
+                <div class="form-group" style="margin-bottom:0;min-width:250px">
+                    <select class="form-select" id="am-server">
+                        <option>My Server</option>
+                        <option>Test Server</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Modules Column -->
+                <div>
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <i data-lucide="info" size="18"></i>
+                        <span>Automod actions are logged to the configured log channel.</span>
+                    </div>
+
+                    <!-- Anti-Spam -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="message-square-off" style="color:var(--neon-pink)"></i> Anti-Spam
+                                </h4>
+                                <p>Prevent users from flooding channels.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked id="am-spam"><span
+                                    class="slider"></span></label>
+                        </div>
+                        <div class="stats-grid" style="grid-template-columns: 1fr 1fr 1fr; gap:16px; margin-bottom:0">
+                            <div>
+                                <label class="form-label">Max Messages</label>
+                                <input type="number" class="form-input" value="5" id="am-spam-max">
+                            </div>
+                            <div>
+                                <label class="form-label">Time (sec)</label>
+                                <input type="number" class="form-input" value="5" id="am-spam-time">
+                            </div>
+                            <div>
+                                <label class="form-label">Action</label>
+                                <select class="form-select" id="am-spam-action">
+                                    <option>Warn</option>
+                                    <option>Mute</option>
+                                    <option>Kick</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Link Filter -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="link" style="color:var(--neon-cyan)"></i> Link Filter</h4>
+                                <p>Block unauthorized links or invites.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="am-links"><span
+                                    class="slider"></span></label>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <label class="form-label">Whitelisted Domains</label>
+                            <input type="text" class="form-input" placeholder="youtube.com, discord.gg"
+                                id="am-links-whitelist">
+                        </div>
+                    </div>
+
+                    <!-- Word Filter -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="type" style="color:var(--neon-orange)"></i> Word Filter</h4>
+                                <p>Block profanity or specific phrases.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="am-words"><span
+                                    class="slider"></span></label>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <label class="form-label">Blocked Words</label>
+                            <textarea class="form-textarea" placeholder="badword1, badword2..."
+                                id="am-words-list"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Column -->
+                <div>
+                    <div class="settings-card" style="position:sticky;top:100px">
+                        <h4 style="margin-bottom:20px">Configuration</h4>
+
+                        <div class="form-group">
+                            <label class="form-label">Log Channel</label>
+                            <select class="form-select" id="am-log">
+                                <option>#mod-logs</option>
+                                <option>#general</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Ignored Roles</label>
+                            <select class="form-select" id="am-ignored-roles-select" onchange="addIgnoredRole(this)">
+                                <option value="" selected disabled>Select a role to ignore...</option>
+                                <option>@Admin</option>
+                                <option>@Moderator</option>
+                                <option>@Member</option>
+                                <option>@Muted</option>
+                            </select>
+                            <div id="am-ignored-roles-list"
+                                style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;min-height:32px">
+                                <!-- Roles added here dynamically -->
+                                <span class="role-badge" data-role="@Admin"
+                                    style="background:rgba(139,92,246,0.2);color:var(--accent-light);padding:4px 10px;border-radius:6px;font-size:0.8rem;display:inline-flex;align-items:center;gap:6px;white-space:nowrap">@Admin
+                                    <i data-lucide="x" size="12" style="cursor:pointer;opacity:0.7"
+                                        onclick="removeIgnoredRole(this)"></i></span>
+                            </div>
+                        </div>
+
+                        <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
+
+                        <!-- Premium AI Content Filter -->
+                        <div class="settings-card premium-locked-card"
+                            style="padding:16px;margin-bottom:24px;position:relative">
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                                <h4 style="font-size:1rem;display:flex;align-items:center;gap:8px">
+                                    <i data-lucide="brain" size="18" style="color:var(--accent-light)"></i> AI Content
+                                    Filter
+                                    <span class="pro-badge"><i data-lucide="crown" style="width:10px;height:10px"></i>
+                                        PRO</span>
+                                </h4>
+                            </div>
+                            <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:12px">Use AI to detect
+                                and flag toxic messages, NSFW content, and harassment.</p>
+                            <div class="flex gap-md" style="opacity:0.5">
+                                <div class="w-full">
+                                    <label class="form-label">Sensitivity</label>
+                                    <select class="form-select" disabled>
+                                        <option>Medium</option>
+                                    </select>
+                                </div>
+                                <div class="w-full">
+                                    <label class="form-label">Action</label>
+                                    <select class="form-select" disabled>
+                                        <option>Delete + Warn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="premium-lock-overlay" onclick="Premium.showUpgradeModal('AI Content Filter')">
+                                <div class="premium-lock-content">
+                                    <i data-lucide="lock" style="width:16px;height:16px;color:var(--accent-light)"></i>
+                                    <span>Upgrade to Pro</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
+
+                        <button class="btn btn-primary w-full mb-2" onclick="saveAutomod()" style="margin-bottom:12px">
+                            <i data-lucide="save"></i> Save Changes
+                        </button>
+                        <button class="btn btn-secondary w-full" onclick="Utils.toast('Reset to defaults','info')">
+                            <i data-lucide="rotate-ccw"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+        function saveAutomod() {
+            // Gather ignored roles
+            const roles = [];
+            document.querySelectorAll('#am-ignored-roles-list .role-badge').forEach(el => {
+                roles.push(el.getAttribute('data-role'));
+            });
+
+            const settings = {
+                spam: document.getElementById('am-spam').checked,
+                spamMax: document.getElementById('am-spam-max').value,
+                spamTime: document.getElementById('am-spam-time').value,
+                spamAction: document.getElementById('am-spam-action').value,
+                links: document.getElementById('am-links').checked,
+                linksWhitelist: document.getElementById('am-links-whitelist').value,
+                words: document.getElementById('am-words').checked,
+                wordsList: document.getElementById('am-words-list').value,
+                logChannel: document.getElementById('am-log').value,
+                ignoredRoles: roles
+            };
+
+            // Use Auth to save (if logged in, generic success toast if not for demo)
+            console.log('Saving AutoMod settings:', settings);
+
+            // In a real app, we'd get the guild ID from URL or context
+            const guildId = 'demo-guild';
+
+            Auth.saveConfig(guildId, 'automod', settings)
+                .then(() => Utils.toast('Automod configuration saved successfully!', 'success'))
+                .catch(err => {
+                    console.error(err);
+                    Utils.toast('Failed to save settings (Backend not running?)', 'error');
+                });
+        }
+
+        function addIgnoredRole(select) {
+            const role = select.value;
+            if (!role) return;
+
+            // Check duplicate
+            const existing = document.querySelector(`#am-ignored-roles-list .role-badge[data-role="${role}"]`);
+            if (existing) {
+                Utils.toast('Role already ignored', 'info');
+                select.value = "";
+                return;
+            }
+
+            const list = document.getElementById('am-ignored-roles-list');
+            const span = document.createElement('span');
+            span.className = 'role-badge';
+            span.setAttribute('data-role', role);
+            span.style.cssText = 'background:rgba(139,92,246,0.2);color:var(--accent-light);padding:4px 10px;border-radius:6px;font-size:0.8rem;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;animation:fadeIn 0.2s';
+            span.innerHTML = `${role} <i data-lucide="x" size="12" style="cursor:pointer;opacity:0.7" onclick="removeIgnoredRole(this)"></i>`;
+
+            list.appendChild(span);
+            lucide.createIcons();
+            select.value = ""; // Reset dropdown
+        }
+
+        function removeIgnoredRole(icon) {
+            const badge = icon.closest('.role-badge');
+            if (badge) badge.remove();
+        }
+    </script>
+</body>
+
+</html>

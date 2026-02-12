@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div id="navbar-actions" class="navbar-actions">
+                <!-- Auth handled by JS -->
+            </div>
+        </div>
+    </nav>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link active"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Unlock analytics & more.</p>
+                <a href="#" onclick="event.preventDefault();Utils.fadeRedirect('premium.html')"
+                    class="btn btn-primary btn-sm w-full" style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div style="margin-bottom:40px">
+                <h1 style="font-size:2rem;display:flex;align-items:center;gap:12px"><i data-lucide="hand"
+                        style="color:#fb923c"></i> Welcome back, <span id="username" class="gradient-text">User</span>
+                </h1>
+                <p style="color:var(--text-secondary)">Managing <span style="color:white;font-weight:600">My
+                        Server</span></p>
+            </div>
+
+            <div class="stats-grid fade-in-up delay-100">
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i data-lucide="server"></i></div>
+                    <div>
+                        <h3 style="font-size:2rem;margin-bottom:4px" id="server-count">0</h3>
+                        <p style="color:var(--text-secondary);font-size:0.9rem">Active Servers</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon cyan"><i data-lucide="box"></i></div>
+                    <div>
+                        <h3 style="font-size:2rem;margin-bottom:4px" id="embed-count">0</h3>
+                        <p style="color:var(--text-secondary);font-size:0.9rem">Embeds Created</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pink"><i data-lucide="image"></i></div>
+                    <div>
+                        <h3 style="font-size:2rem;margin-bottom:4px" id="welcome-count">0</h3>
+                        <p style="color:var(--text-secondary);font-size:0.9rem">Welcome Cards</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i data-lucide="crown"></i></div>
+                    <div>
+                        <h3 style="font-size:1.5rem;margin-bottom:4px">Free</h3>
+                        <p style="color:var(--text-secondary);font-size:0.9rem">Current Plan</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom:24px;font-size:1.2rem">Quick Actions</h3>
+            <div class="stats-grid fade-in-up delay-200">
+                <!-- Welcome Cards -->
+                <a href="welcome-builder.html" class="feature-card" style="min-height:220px">
+                    <i data-lucide="image"
+                        style="margin-bottom:16px;width:32px;height:32px;color:var(--neon-orange)"></i>
+                    <h3 style="font-size:1.2rem;margin-bottom:8px">Welcome Cards</h3>
+                    <p style="font-size:0.9rem;line-height:1.5">Make a lasting first impression. Design fully custom,
+                        high-resolution entry cards with automated user data and pro-tier backgrounds.</p>
+                </a>
+
+                <!-- Embed Builder -->
+                <a href="embed-builder.html" class="feature-card" style="min-height:220px">
+                    <i data-lucide="box" style="margin-bottom:16px;width:32px;height:32px;color:var(--accent)"></i>
+                    <h3 style="font-size:1.2rem;margin-bottom:8px">Embed Builder</h3>
+                    <p style="font-size:0.9rem;line-height:1.5">The ultimate communication tool. Create rich, glassy
+                        announcements with buttons and images that demand attention in your channels.</p>
+                </a>
+
+                <!-- Auto Mod -->
+                <a href="automod.html" class="feature-card" style="min-height:220px">
+                    <i data-lucide="shield"
+                        style="margin-bottom:16px;width:32px;height:32px;color:var(--neon-cyan)"></i>
+                    <h3 style="font-size:1.2rem;margin-bottom:8px">Auto Mod</h3>
+                    <p style="font-size:0.9rem;line-height:1.5">Deploy your server's 24/7 AI Shield. Automatically crush
+                        raids, filter toxicity, and keep your community safe while you sleep.</p>
+                </a>
+
+                <!-- Music -->
+                <a href="music.html" class="feature-card" style="min-height:220px">
+                    <i data-lucide="music" style="margin-bottom:16px;width:32px;height:32px;color:#fb923c"></i>
+                    <h3 style="font-size:1.2rem;margin-bottom:8px">Music Player</h3>
+                    <p style="font-size:0.9rem;line-height:1.5">Experience high-fidelity 320kbps audio. Manage queues,
+                        toggle shuffle, and sync your favorite lofi or gaming beats to your voice chat.</p>
+                </a>
+            </div>
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <!-- ... stats ... -->
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="js/tilt.js"></script>
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/storage.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+        // Use Mock User if not logged in (Demo Mode)
+        const user = Auth.getUser() || Utils.getMockUser();
+
+        document.getElementById('username').textContent = user.global_name || user.username;
+        const guilds = Auth.getGuilds();
+        document.getElementById('server-count').textContent = guilds.length > 0 ? guilds.length : '1 (Demo)';
+        document.getElementById('embed-count').textContent = Storage.get('embeds').length || '0';
+        document.getElementById('welcome-count').textContent = Storage.get('welcome_cards').length || '0';
+
+        document.getElementById('navbar-actions').innerHTML = `
+            <div style="display:flex;align-items:center;gap:12px;cursor:pointer" onclick="Auth.logout()">
+                <img src="${user.avatar ? Auth.getAvatarURL(user) : 'https://cdn.discordapp.com/embed/avatars/0.png'}" style="width:40px;height:40px;border-radius:12px;border:2px solid var(--border)">
+                <div class="hidden-mobile">
+                <div style="font-weight:600;font-size:0.9rem">${user.username}</div>
+                <div style="font-size:0.75rem;color:var(--text-secondary)">Log Out</div>
+                </div>
+            </div>
+        `;
+    </script>
+</body>
+
+</html>

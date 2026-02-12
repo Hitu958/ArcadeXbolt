@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leveling — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="arrow-left" size="16"></i>
+                    Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link active"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Custom level-up cards.</p>
+                <a href="premium.html" class="btn btn-primary btn-sm w-full"
+                    style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div style="margin-bottom:32px;display:flex;justify-content:space-between;align-items:end">
+                <div>
+                    <h1 style="font-size:2rem;margin-bottom:8px">🏆 <span class="gradient-text">Leveling
+                            Configuration</span></h1>
+                    <p style="color:var(--text-secondary)">Manage XP rates, rewards, and announcements.</p>
+                </div>
+                <div class="flex gap-sm">
+                    <button class="btn btn-primary" onclick="Utils.toast('Settings saved!','success')"><i
+                            data-lucide="save"></i> Save Changes</button>
+                    <button class="btn btn-secondary" onclick="Utils.toast('Reset to default','info')"><i
+                            data-lucide="rotate-ccw"></i></button>
+                </div>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Column 1 -->
+                <div>
+                    <!-- XP Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="zap" class="mr-2"></i> XP Rate</h4>
+                                <p>How much XP users gain per message.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="flex gap-md">
+                            <div class="form-group w-full">
+                                <label class="form-label">Min XP</label>
+                                <input type="number" class="form-input" value="15">
+                            </div>
+                            <div class="form-group w-full">
+                                <label class="form-label">Max XP</label>
+                                <input type="number" class="form-input" value="25">
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">Cooldown (seconds)</label>
+                            <input type="number" class="form-input" value="60">
+                        </div>
+                    </div>
+
+                    <!-- Announcements -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="megaphone" class="mr-2"></i> Level-Up Announcement</h4>
+                                <p>Message sent when a user levels up.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Channel</label>
+                            <select class="form-select">
+                                <option>Current Channel</option>
+                                <option>#level-ups</option>
+                                <option>Direct Message</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-textarea" rows="2">🎉 {user} has reached level {level}!</textarea>
+                            <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:4px">Variables: {user},
+                                {level}, {xp}</p>
+                        </div>
+                    </div>
+
+                    <!-- Ignored -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="eye-off" class="mr-2"></i> Ignored Channels</h4>
+                                <p>Channels where XP is disabled.</p>
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <input type="text" class="form-input" placeholder="#no-xp, #spam">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                    <!-- Role Rewards -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="award" class="mr-2"></i> Role Rewards</h4>
+                                <p>Roles given at specific levels.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+
+                        <div id="role-rewards" class="flex flex-col gap-sm">
+                            <div class="flex gap-sm items-center">
+                                <div class="badge"
+                                    style="background:var(--bg-input);min-width:52px;text-align:center;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;font-size:0.8rem">
+                                    Lvl 5
+                                </div>
+                                <input class="form-input" value="Active Member" style="flex:1">
+                                <button class="btn btn-secondary btn-sm" onclick="this.parentElement.remove()"><i
+                                        data-lucide="trash-2" size="14"></i></button>
+                            </div>
+                            <div class="flex gap-sm items-center">
+                                <div class="badge"
+                                    style="background:var(--bg-input);min-width:52px;text-align:center;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;font-size:0.8rem">
+                                    Lvl 10</div>
+                                <input class="form-input" value="Veteran" style="flex:1">
+                                <button class="btn btn-secondary btn-sm" onclick="this.parentElement.remove()"><i
+                                        data-lucide="trash-2" size="14"></i></button>
+                            </div>
+                            <div class="flex gap-sm items-center">
+                                <div class="badge"
+                                    style="background:var(--bg-input);min-width:52px;text-align:center;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;font-size:0.8rem">
+                                    Lvl 20</div>
+                                <input class="form-input" value="Elite" style="flex:1">
+                                <button class="btn btn-secondary btn-sm" onclick="this.parentElement.remove()"><i
+                                        data-lucide="trash-2" size="14"></i></button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-secondary btn-sm w-full mt-4" onclick="addReward()"
+                            style="margin-top:16px"><i data-lucide="plus" size="14"></i> Add Reward</button>
+                    </div>
+
+                    <div class="info-box">
+                        <i data-lucide="bar-chart-2" size="18" style="flex-shrink:0"></i>
+                        <p>Enable "Stack Rewards" in advanced settings to keep previous roles.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+        function addReward() {
+            const div = document.createElement('div');
+            div.className = 'flex gap-sm items-center';
+            div.innerHTML = `<div class="badge" style="background:var(--bg-input);min-width:52px;text-align:center;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;font-size:0.8rem"></div><input class="form-input" type="number" placeholder="Lvl" style="width:50px"><input class="form-input" placeholder="Role Name" style="flex:1"><button class="btn btn-secondary btn-sm" onclick="this.parentElement.remove()"><i data-lucide="trash-2" size="14"></i></button>`;
+            document.getElementById('role-rewards').appendChild(div);
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Premium — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .premium-hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+        }
+
+        .check-icon {
+            color: var(--success);
+        }
+
+        .cross-icon {
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="layout-dashboard"
+                        size="16"></i>
+                    Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top:100px;padding-bottom:100px">
+
+        <div class="premium-hero fade-in-up">
+            <div class="hero-badge"><i data-lucide="sparkles" size="14"></i> The Grand Showroom</div>
+            <h1 style="font-size:3.5rem;margin-bottom:20px">Unlock <span class="gradient-text">Ultimate Power</span>
+            </h1>
+            <p style="font-size:1.2rem;color:var(--text-secondary)">Take your server to the next level with ArcadeX Pro.
+            </p>
+        </div>
+
+        <!-- Pricing Cards (Deep Tilt / Long Rows) -->
+        <div class="pricing-grid fade-in-up delay-100"
+            style="max-width:900px;margin:0 auto 80px;display:grid;grid-template-columns:1fr;gap:40px;perspective:1200px">
+
+            <!-- Pro Monthly -->
+            <div class="pricing-card glass-panel-ultra" data-tilt data-tilt-max="20" data-tilt-speed="400"
+                data-tilt-glare="true" data-tilt-max-glare="0.3"
+                style="border-radius:24px;transform-style:preserve-3d;padding:40px 60px">
+                <h3 style="font-size:1.5rem;color:white;text-shadow:0 0 10px rgba(139,92,246,0.3)">Pro Monthly</h3>
+                <div class="pricing-price">$2.99<span
+                        style="font-size:1rem;color:var(--text-secondary);font-weight:400">/mo</span></div>
+                <p style="color:var(--text-secondary);margin-bottom:24px">Standard premium access.</p>
+                <button class="btn btn-primary w-full" style="padding:14px" onclick="alert('Checkout coming soon!')">Get
+                    Started</button>
+            </div>
+
+            <!-- Lifetime (Featured) -->
+            <div class="pricing-card featured glass-panel-ultra" data-tilt data-tilt-max="20" data-tilt-speed="400"
+                data-tilt-glare="true" data-tilt-max-glare="0.3"
+                style="border-radius:24px;transform-style:preserve-3d;padding:40px 60px">
+                <div
+                    style="text-align:center;color:var(--accent-light);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-size:0.8rem;text-shadow:0 0 10px rgba(139,92,246,0.3)">
+                    Best Value</div>
+                <h3 style="font-size:1.5rem;color:white;text-shadow:0 0 10px rgba(139,92,246,0.3)">Lifetime Access</h3>
+                <div class="pricing-price" style="color:#FFFFFF;text-shadow:0 0 15px rgba(255,255,255,0.5)">$19.99<span
+                        style="font-size:1rem;color:#A0A0A0;font-weight:400"> once</span></div>
+                <p style="color:#A0A0A0;margin-bottom:24px">Pay once, own it forever.</p>
+                <button class="btn btn-primary w-full super-glow-btn" style="padding:14px;font-size:1.1rem"
+                    onclick="alert('Checkout coming soon!')">
+                    <i data-lucide="zap" fill="white"></i> Buy Lifetime
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Glass Comparison Table -->
+        <div class="card fade-in-up delay-200 glass-panel-ultra"
+            style="max-width:1000px;margin:0 auto;padding:40px;backdrop-filter:blur(20px);background:rgba(20,20,30,0.4)">
+            <h2 class="text-center" style="margin-bottom:40px">Compare Plans</h2>
+            <table class="glass-table">
+                <thead>
+                    <tr>
+                        <th style="width:40%">Feature</th>
+                        <th style="width:30%">Free Tier</th>
+                        <th style="width:30%">Pro Tier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ArcadeX Branding</td>
+                        <td><i data-lucide="check" class="check-icon"></i> Forced Watermark</td>
+                        <td><i data-lucide="minus" style="color:var(--success)"></i> Removed</td>
+                    </tr>
+                    <tr>
+                        <td>Embed Webhooks</td>
+                        <td><i data-lucide="lock" class="cross-icon"></i> Locked</td>
+                        <td><i data-lucide="check" class="check-icon"></i> Unlocked</td>
+                    </tr>
+                    <tr>
+                        <td>Music Player</td>
+                        <td>Shuffle Only</td>
+                        <td><i data-lucide="music" class="check-icon"></i> Full Control</td>
+                    </tr>
+                    <tr>
+                        <td>Welcome Backgrounds</td>
+                        <td>5 Presets (Random)</td>
+                        <td><i data-lucide="image" class="check-icon"></i> Custom Upload</td>
+                    </tr>
+                    <tr>
+                        <td>Automod AI</td>
+                        <td><i data-lucide="lock" class="cross-icon"></i> Basic Filters</td>
+                        <td><i data-lucide="bot" class="check-icon"></i> Advanced AI</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+
+        // Ensure VanillaTilt is active (data attributes handle config)
+        // VanillaTilt auto-inits if script is present, but just in case:
+        // VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
+    </script>
+</body>
+
+</html>

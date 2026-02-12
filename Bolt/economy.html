@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economy — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="arrow-left" size="16"></i>
+                    Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link active"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Global economy & syncing.
+                </p>
+                <a href="premium.html" class="btn btn-primary btn-sm w-full"
+                    style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div style="margin-bottom:32px;display:flex;justify-content:space-between;align-items:end">
+                <div>
+                    <h1 style="font-size:2rem;margin-bottom:8px">💰 <span class="gradient-text">Economy System</span>
+                    </h1>
+                    <p style="color:var(--text-secondary)">Manage currency, shop items, and rewards.</p>
+                </div>
+                <!-- Controls -->
+                <div class="flex gap-sm">
+                    <button class="btn btn-primary" onclick="Utils.toast('Settings saved!','success')"><i
+                            data-lucide="save"></i> Save Changes</button>
+                    <button class="btn btn-secondary" onclick="Utils.toast('Reset to default','info')"><i
+                            data-lucide="rotate-ccw"></i></button>
+                </div>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Column 1 -->
+                <div>
+                    <!-- General -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="wallet" class="mr-2"></i> Currency</h4>
+                                <p>Set the name and symbol for your server currency.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-md">
+                            <div class="form-group w-full">
+                                <label class="form-label">Currency Name</label>
+                                <input type="text" class="form-input" value="Coins">
+                            </div>
+                            <div class="form-group w-full">
+                                <label class="form-label">Symbol</label>
+                                <input type="text" class="form-input" value="🪙">
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">Starting Balance</label>
+                            <input type="number" class="form-input" value="100">
+                        </div>
+                    </div>
+
+                    <!-- Daily -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="calendar" class="mr-2"></i> Daily Rewards</h4>
+                                <p>Rewards users can claim every 24 hours.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="flex gap-md">
+                            <div class="form-group w-full">
+                                <label class="form-label">Min Amount</label>
+                                <input type="number" class="form-input" value="100">
+                            </div>
+                            <div class="form-group w-full">
+                                <label class="form-label">Max Amount</label>
+                                <input type="number" class="form-input" value="500">
+                            </div>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">Streak Bonus (Multipler)</label>
+                            <input type="number" class="form-input" value="1.05" step="0.05">
+                        </div>
+                    </div>
+
+                    <!-- Shop -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="shopping-bag" class="mr-2"></i> Shop Items</h4>
+                                <p>Items users can buy with currency.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div id="shop-items" class="flex flex-col gap-sm">
+                            <div class="flex gap-sm items-center">
+                                <input class="form-input" value="VIP Role" style="flex:2">
+                                <input class="form-input" type="number" value="5000" style="flex:1">
+                                <button class="btn btn-secondary btn-sm" onclick="this.parentElement.remove()"><i
+                                        data-lucide="trash-2" size="14"></i></button>
+                            </div>
+                            <div class="flex gap-sm items-center">
+                                <input class="form-input" value="Color Change" style="flex:2">
+                                <input class="form-input" type="number" value="1000" style="flex:1">
+                                <button class="btn btn-secondary btn-sm" onclick="this.parentElement.remove()"><i
+                                        data-lucide="trash-2" size="14"></i></button>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm w-full mt-4" onclick="addShopItem()"
+                            style="margin-top:16px"><i data-lucide="plus" size="14"></i> Add Item</button>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div>
+                    <!-- Gambling -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="dice-5" class="mr-2"></i> Gambling</h4>
+                                <p>Allow users to bet currency.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Win Chance (%)</label>
+                            <input type="range" class="w-full neon-slider" min="0" max="100" value="45" id="win-slider"
+                                oninput="updateGlow(this)">
+                            <span style="float:right;color:var(--text-secondary);font-size:0.85rem"
+                                id="win-label">45%</span>
+                        </div>
+                        <script>
+                            function updateGlow(slider) {
+                                const val = slider.value;
+                                document.getElementById('win-label').innerText = val + '%';
+
+                                // Logic: Lower win chance (higher risk) -> Redder glow
+                                // 100% = Purple, 0% = Red
+                                // Mix colors or switch classes? Let's alter the shadow via JS
+                                const purple = [139, 92, 246]; // #8b5cf6
+                                const red = [239, 68, 68];     // #ef4444
+
+                                const ratio = val / 100; // 1.0 (Safe) -> 0.0 (Risk)
+                                const r = Math.round(red[0] + (purple[0] - red[0]) * ratio);
+                                const g = Math.round(red[1] + (purple[1] - red[1]) * ratio);
+                                const b = Math.round(red[2] + (purple[2] - red[2]) * ratio);
+                                const color = `rgb(${r}, ${g}, ${b})`;
+
+                                // Update Thumb Shadow
+                                // box-shadow: 0 0 15px color, 0 0 25px color, 0 0 45px white;
+                                const shadow = `0 0 15px ${color}, 0 0 25px ${color}, 0 0 45px white`;
+
+                                // We need to inject a style because pseudo-elements can't be styled inline easily on 'this'
+                                // We'll set a CSS variable on the input
+                                slider.style.setProperty('--neon-glow', color);
+                            }
+                            // Init
+                            setTimeout(() => updateGlow(document.getElementById('win-slider')), 100);
+                        </script>
+                        <style>
+                            /* Allow CSS var override */
+                            input[type=range].neon-slider::-webkit-slider-thumb {
+                                box-shadow: 0 0 15px var(--neon-glow, var(--neon-purple)),
+                                    0 0 25px var(--neon-glow, var(--neon-purple)),
+                                    0 0 45px white !important;
+                            }
+
+                            input[type=range].neon-slider::-webkit-slider-runnable-track {
+                                box-shadow: 0 0 15px var(--neon-glow, rgba(139, 92, 246, 0.6)) !important;
+                            }
+                        </style>
+                    </div>
+
+                    <!-- Robbery -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <div class="settings-info">
+                                <h4><i data-lucide="swords" class="mr-2"></i> Robbery</h4>
+                                <p>Users can steal from each other.</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Success Chance (%)</label>
+                            <input type="number" class="form-input" value="30">
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">Fine Amount (%)</label>
+                            <input type="number" class="form-input" value="20">
+                            <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:4px">Amount lost if
+                                failed.</p>
+                        </div>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="info-box">
+                        <i data-lucide="info" size="18" style="flex-shrink:0"></i>
+                        <p>Economy data is saved per-server. Premium servers get global economy support across all
+                            servers.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+        function addShopItem() {
+            const div = document.createElement('div');
+            div.className = 'flex gap-sm items-center';
+            div.innerHTML = `<input class="form-input" placeholder="Item Name" style="flex:2"><input class="form-input" type="number" placeholder="Cost" style="flex:1"><button class="btn btn-secondary btn-sm" onclick="this.parentElement.remove()"><i data-lucide="trash-2" size="14"></i></button>`;
+            document.getElementById('shop-items').appendChild(div);
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Card Builder — ArcadeX</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <nav class="navbar">
+        <div class="container" style="max-width:1600px;padding:0 40px">
+            <a href="index.html" class="navbar-brand"><i data-lucide="zap"
+                    style="color:var(--accent);fill:var(--accent-glow)"></i>ArcadeX</a>
+            <div class="navbar-actions">
+                <a href="dashboard.html" class="btn btn-secondary btn-sm"><i data-lucide="arrow-left" size="16"></i>
+                    Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section-title">Main</div>
+            <a href="dashboard.html" class="sidebar-link"><i data-lucide="layout-dashboard"></i> Overview</a>
+            <a href="servers.html" class="sidebar-link"><i data-lucide="server"></i> My Servers</a>
+
+            <div class="sidebar-section-title">Tools</div>
+            <a href="embed-builder.html" class="sidebar-link"><i data-lucide="box"></i> Embed Builder</a>
+            <a href="welcome-builder.html" class="sidebar-link active"><i data-lucide="image"></i> Welcome Cards</a>
+
+            <div class="sidebar-section-title">Manage</div>
+            <a href="automod.html" class="sidebar-link"><i data-lucide="shield"></i> Auto Mod</a>
+            <a href="music.html" class="sidebar-link"><i data-lucide="music"></i> Music</a>
+            <a href="economy.html" class="sidebar-link"><i data-lucide="coins"></i> Economy</a>
+            <a href="leveling.html" class="sidebar-link"><i data-lucide="trophy"></i> Leveling</a>
+            <a href="tickets.html" class="sidebar-link"><i data-lucide="ticket"></i> Tickets</a>
+            <a href="giveaways.html" class="sidebar-link"><i data-lucide="gift"></i> Giveaways</a>
+
+            <div
+                style="margin-top:40px;padding:24px;background:linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0));border-radius:20px;border:1px solid var(--border)">
+                <div class="flex items-center gap-sm mb-2"
+                    style="margin-bottom:8px;color:var(--accent-light);font-weight:700">
+                    <i data-lucide="crown" size="16"></i> Go Premium
+                </div>
+                <p style="font-size:0.85rem;margin-bottom:16px;color:var(--text-secondary)">Custom backgrounds & no
+                    watermark.</p>
+                <a href="premium.html" class="btn btn-primary btn-sm w-full"
+                    style="box-shadow:0 4px 15px var(--accent-glow)">Upgrade</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main fade-in-up">
+            <div style="margin-bottom:40px">
+                <h1 style="font-size:2rem;display:flex;align-items:center;gap:12px"><i data-lucide="palette"
+                        style="color:var(--neon-orange)"></i> <span class="gradient-text">Welcome Cards</span></h1>
+                <p style="color:var(--text-secondary)">Design beautiful welcome images for new members</p>
+            </div>
+
+            <div class="flex gap-lg builder-layout text-white">
+                <!-- Editor -->
+                <div class="card"
+                    style="flex:1;background:var(--bg-card);backdrop-filter:blur(16px);position:relative;z-index:1">
+                    <h4 style="margin-bottom:24px">Design Settings</h4>
+
+                    <div class="form-group">
+                        <label class="form-label">Design Name (for saving)</label>
+                        <input type="text" class="form-input" id="wc-name" placeholder="My Awesome Design">
+                    </div>
+
+                    <!-- Combined Background Control -->
+                    <div class="form-group">
+                        <label class="form-label">Background</label>
+
+                        <!-- Free: Gallery -->
+                        <div id="free-bg-control">
+                            <select class="form-select" id="wc-gallery" onchange="updateGalleryBg()">
+                                <option value="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&q=80">
+                                    Arcade Neon</option>
+                                <option value="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80">
+                                    Gaming Setup</option>
+                                <option value="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80">
+                                    Retro Wave</option>
+                                <option value="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=800&q=80">
+                                    Cyberpunk City</option>
+                                <option value="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80">
+                                    Controller Art</option>
+                            </select>
+                        </div>
+
+                        <!-- Pro: Upload -->
+                        <div id="pro-bg-control" style="display:none">
+                            <div class="flex gap-sm">
+                                <input type="url" class="form-input" id="wc-bg"
+                                    placeholder="https://example.com/image.png" oninput="drawCard()">
+                                <label class="btn btn-secondary" style="white-space:nowrap;cursor:pointer">
+                                    <i data-lucide="upload"></i>
+                                    <input type="file" style="display:none" onchange="handleImageUpload(this)">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Avatar URL (Optional)</label>
+                        <div class="flex gap-sm">
+                            <input type="url" class="form-input" id="wc-avatar"
+                                placeholder="Leave empty for Discord Avatar" oninput="updateAvatar()">
+                            <label class="btn btn-secondary" style="white-space:nowrap;cursor:pointer">
+                                <i data-lucide="upload"></i> Upload
+                                <input type="file" style="display:none" onchange="handleAvatarUpload(this)">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-md mb-4">
+                        <div class="w-full">
+                            <label class="form-label">Top Text <span class="var-guide">Text</span></label>
+                            <input type="text" class="form-input" id="wc-top" placeholder="WELCOME"
+                                oninput="drawCard()">
+                        </div>
+                        <div class="w-full">
+                            <label class="form-label">Bottom Text <span class="var-guide">{user}</span> <span
+                                    class="var-guide">{server}</span></label>
+                            <input type="text" class="form-input" id="wc-bot" value="{user}" oninput="drawCard()">
+                        </div>
+                    </div>
+
+                    <div class="flex gap-md mb-4">
+                        <div class="w-full">
+                            <label class="form-label">Text Color</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="wc-color" value="#ffffff" class="color-input-swatch"
+                                    oninput="drawCard()">
+                                <input type="text" class="form-input border-0 bg-transparent p-0 h-auto" value="#ffffff"
+                                    oninput="document.getElementById('wc-color').value=this.value;drawCard()">
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <label class="form-label">Avatar Border</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="wc-border" value="#8b5cf6" class="color-input-swatch"
+                                    oninput="drawCard()">
+                                <input type="text" class="form-input border-0 bg-transparent p-0 h-auto" value="#8b5cf6"
+                                    oninput="document.getElementById('wc-border').value=this.value;drawCard()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Branding Toggle -->
+                    <div class="settings-card"
+                        style="margin-bottom:24px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+                        <div>
+                            <h4 style="font-size:1rem;margin-bottom:4px">Show ArcadeX Branding</h4>
+                            <p style="font-size:0.85rem;color:var(--text-secondary)">Remove watermark (Premium).</p>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked id="wc-branding"
+                                onchange="drawCard()"><span class="slider"></span></label>
+                    </div>
+
+                    <!-- Send on Join -->
+                    <div class="settings-card"
+                        style="margin-bottom:24px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+                        <div>
+                            <h4 style="font-size:1rem;margin-bottom:4px">Send When User Joins</h4>
+                            <p style="font-size:0.85rem;color:var(--text-secondary)">Automatically send this card to the
+                                system channel.</p>
+                        </div>
+                        <label class="toggle"><input type="checkbox" checked id="wc-auto"><span
+                                class="slider"></span></label>
+                    </div>
+
+                    <div class="flex gap-md">
+                        <button class="btn btn-primary w-full" id="btn-save-design" onclick="saveDesign()"><i
+                                data-lucide="save"></i> Save
+                            Design</button>
+                        <button class="btn btn-secondary w-full" id="btn-test-send" onclick="testSend()"><i
+                                data-lucide="send"></i> Test Send</button>
+                    </div>
+                </div>
+
+                <!-- Preview & Saved -->
+                <div style="width:400px;display:flex;flex-direction:column;gap:32px">
+                    <!-- Preview -->
+                    <div class="card sticky-preview" style="padding:24px">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                            <h4 style="font-size:1rem;">Live Preview</h4>
+                            <span class="badge"
+                                style="background:var(--bg-input);font-size:0.75rem;padding:4px 8px;border-radius:4px">800x400px</span>
+                        </div>
+
+                        <div class="tilt-preview"
+                            style="position:relative;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.5)">
+                            <canvas id="canvas" width="800" height="400" style="width:100%;display:block"></canvas>
+                        </div>
+
+                        <p style="text-align:center;font-size:0.85rem;color:var(--text-secondary);margin:12px 0">
+                            Avatar shows user's profile picture automatically.
+                        </p>
+
+                        <div style="display:none">
+                            <button class="btn btn-secondary btn-sm w-full" onclick="downloadCard()"><i
+                                    data-lucide="download" style="width:14px;height:14px"></i> Download</button>
+                            <button class="btn btn-secondary btn-sm w-full" onclick="copyImage()"><i data-lucide="copy"
+                                    style="width:14px;height:14px"></i> Copy</button>
+                        </div>
+                    </div>
+
+                    <!-- Saved Designs -->
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 style="font-size:1rem">Load Design</h4>
+                            <button class="btn btn-sm btn-secondary" onclick="clearAllDesigns()"
+                                style="padding:4px 8px;font-size:0.75rem">Clear All</button>
+                        </div>
+                        <div class="saved-list" id="saved-list">
+                            <!-- Populated by JS -->
+                            <p style="color:var(--text-secondary);font-size:0.9rem;text-align:center;padding:20px">No
+                                saved designs yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/mesh-bg.js"></script>
+    <script src="js/premium.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script>
+        lucide.createIcons();
+        MeshBG.init(document.body);
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Init Vanilla Tilt (Canvas Preview)
+        const isTouch = window.matchMedia("(hover: none)").matches;
+        if (!isTouch) {
+            VanillaTilt.init(document.querySelector(".tilt-preview"), {
+                max: 10,
+                perspective: 1000,
+                glare: true,
+                "max-glare": 0.3,
+                scale: 1,
+                speed: 400
+            });
+        }
+
+        // Avatar handling
+        const avatar = new Image();
+        avatar.crossOrigin = "anonymous";
+        // Fixing the "U" alignment: using dominant-baseline="middle" and slightly adjusting y and font-size
+        const placeholderSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs><rect width="256" height="256" rx="128" fill="url(#g)"/><text x="128" y="128" dy=".1em" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-family="Arial,sans-serif" font-size="120" font-weight="bold">U</text></svg>`;
+        const placeholderSrc = 'data:image/svg+xml;base64,' + btoa(placeholderSvg);
+
+        // Initial load
+        updateAvatar();
+
+        avatar.onload = () => drawCard();
+        avatar.onerror = () => { if (avatar.src !== placeholderSrc) avatar.src = placeholderSrc; };
+
+        function updateAvatar() {
+            const customUrl = document.getElementById('wc-avatar').value;
+            if (customUrl) {
+                avatar.src = customUrl;
+            } else if (Auth.isLoggedIn()) {
+                const user = Auth.getUser();
+                if (user.avatar) {
+                    const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
+                    avatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
+                } else {
+                    avatar.src = placeholderSrc;
+                }
+            } else {
+                avatar.src = placeholderSrc;
+            }
+        }
+
+        function handleAvatarUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('wc-avatar').value = e.target.result;
+                    updateAvatar();
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Background image — start empty (gradient fallback) — user can paste a URL
+        const bg = new Image();
+        bg.crossOrigin = "anonymous";
+        let bgLoaded = false;
+        bg.onload = () => { bgLoaded = true; drawCard(); };
+        bg.onerror = () => { bgLoaded = false; drawCard(); };
+
+        // Premium locks & Gallery Logic
+        function initControls() {
+            const isPremium = Premium.isPremium();
+            const freeControl = document.getElementById('free-bg-control');
+            const proControl = document.getElementById('pro-bg-control');
+            const brandingToggle = document.getElementById('wc-branding');
+
+            if (isPremium) {
+                freeControl.style.display = 'none';
+                proControl.style.display = 'block';
+                brandingToggle.disabled = false;
+            } else {
+                freeControl.style.display = 'block';
+                proControl.style.display = 'none';
+
+                // Lock Branding to ON (checked)
+                brandingToggle.checked = true;
+                brandingToggle.disabled = true;
+                brandingToggle.parentElement.onclick = (e) => {
+                    if (e.target.tagName !== 'INPUT') {
+                        Premium.showUpgradeModal('Remove Branding');
+                    }
+                };
+            }
+            // Init default gallery bg for free users
+            if (!document.getElementById('wc-bg').value && !isPremium) {
+                updateGalleryBg();
+            }
+        }
+
+        function updateGalleryBg() {
+            const url = document.getElementById('wc-gallery').value;
+            document.getElementById('wc-bg').value = url;
+            bgLoaded = false;
+            bg.src = url;
+        }
+
+        initControls();
+
+        // Init saved list
+        renderSaved();
+
+        function drawCard() {
+            try {
+                const topTextInput = document.getElementById('wc-top');
+                const botTextInput = document.getElementById('wc-bot');
+                const topText = topTextInput.value || topTextInput.placeholder;
+                let botText = botTextInput.value;
+
+                botText = botText.replace('{user}', 'User#1234').replace('{server}', 'My Server');
+
+                const color = document.getElementById('wc-color').value;
+                const borderColor = document.getElementById('wc-border').value || '#7c3aed';
+                const bgUrl = document.getElementById('wc-bg').value;
+
+                // Only load BG if the URL changed and is non-empty
+                if (bgUrl && bg.src !== bgUrl) {
+                    bgLoaded = false;
+                    bg.src = bgUrl;
+                    // Don't return — draw the card now with gradient, it'll redraw on load
+                }
+
+                // Clear Canvas
+                ctx.clearRect(0, 0, 800, 400);
+
+                // Draw BG — use loaded image or gradient fallback
+                if (bgLoaded && bg.complete && bg.naturalHeight !== 0) {
+                    const imgRatio = bg.naturalWidth / bg.naturalHeight;
+                    const canvasRatio = 800 / 400;
+                    let sx = 0, sy = 0, sw = bg.naturalWidth, sh = bg.naturalHeight;
+                    if (imgRatio > canvasRatio) {
+                        sw = bg.naturalHeight * canvasRatio;
+                        sx = (bg.naturalWidth - sw) / 2;
+                    } else {
+                        sh = bg.naturalWidth / canvasRatio;
+                        sy = (bg.naturalHeight - sh) / 2;
+                    }
+                    ctx.drawImage(bg, sx, sy, sw, sh, 0, 0, 800, 400);
+                } else {
+                    // Gradient fallback — always renders
+                    const grd = ctx.createLinearGradient(0, 0, 800, 400);
+                    grd.addColorStop(0, '#1a1b2e');
+                    grd.addColorStop(0.5, '#0f0f1a');
+                    grd.addColorStop(1, '#1a0f2e');
+                    ctx.fillStyle = grd;
+                    ctx.fillRect(0, 0, 800, 400);
+
+                    // Add subtle decorative circles
+                    ctx.globalAlpha = 0.08;
+                    ctx.fillStyle = borderColor;
+                    ctx.beginPath(); ctx.arc(650, 80, 120, 0, Math.PI * 2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(150, 350, 80, 0, Math.PI * 2); ctx.fill();
+                    ctx.globalAlpha = 1.0;
+                }
+
+                // Overlay gradient
+                const overlay = ctx.createLinearGradient(0, 0, 0, 400);
+                overlay.addColorStop(0, 'rgba(0, 0, 0, 0.3)');
+                overlay.addColorStop(0.5, 'rgba(0, 0, 0, 0.5)');
+                overlay.addColorStop(1, 'rgba(0, 0, 0, 0.65)');
+                ctx.fillStyle = overlay;
+                ctx.fillRect(0, 0, 800, 400);
+
+                // Decorative accent line at top
+                const accentGrd = ctx.createLinearGradient(0, 0, 800, 0);
+                accentGrd.addColorStop(0, 'rgba(139, 92, 246, 0)');
+                accentGrd.addColorStop(0.3, borderColor);
+                accentGrd.addColorStop(0.7, borderColor);
+                accentGrd.addColorStop(1, 'rgba(139, 92, 246, 0)');
+                ctx.fillStyle = accentGrd;
+                ctx.fillRect(0, 0, 800, 3);
+
+                // Avatar Border (glow)
+                ctx.save();
+                ctx.shadowColor = borderColor;
+                ctx.shadowBlur = 20;
+                ctx.beginPath();
+                ctx.arc(400, 150, 85, 0, Math.PI * 2);
+                ctx.fillStyle = borderColor;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                // Avatar clip
+                ctx.beginPath();
+                ctx.arc(400, 150, 80, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                if (avatar.complete && avatar.naturalHeight !== 0) {
+                    ctx.drawImage(avatar, 320, 70, 160, 160);
+                } else {
+                    // Fallback circle
+                    ctx.fillStyle = '#2a2a3a';
+                    ctx.fill();
+                }
+                ctx.restore();
+
+                // Text Rendering
+                ctx.textAlign = 'center';
+                ctx.fillStyle = color;
+                ctx.shadowColor = 'rgba(0,0,0,0.7)';
+                ctx.shadowBlur = 15;
+
+                if (topText) {
+                    ctx.font = 'bold 50px Inter, system-ui, -apple-system, sans-serif';
+                    ctx.fillText(topText.toUpperCase(), 400, 300);
+                }
+
+                if (botText) {
+                    ctx.font = '28px Inter, system-ui, -apple-system, sans-serif';
+                    ctx.fillStyle = '#e4e4e7';
+                    ctx.shadowBlur = 10;
+                    ctx.fillText(botText, 400, 350);
+                }
+
+                ctx.shadowBlur = 0;
+
+                // Watermark for Free users OR if toggle is checked
+                const showBranding = document.getElementById('wc-branding').checked;
+                if (showBranding) {
+                    ctx.save();
+                    ctx.textAlign = 'right';
+                    ctx.font = '600 14px Inter, system-ui, sans-serif';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 4;
+                    ctx.fillText('ArcadeX.gg', 785, 388);
+                    ctx.restore();
+                }
+
+            } catch (e) {
+                console.error("Draw error:", e);
+            }
+        }
+
+        function handleImageUpload(input) {
+            if (!Premium.isPremium()) {
+                Premium.showUpgradeModal('Custom Background Upload');
+                return;
+            }
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('wc-bg').value = e.target.result;
+                    bgLoaded = false;
+                    bg.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function saveDesign() {
+            const btn = document.getElementById('btn-save-design');
+            if (btn.disabled) return;
+
+            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner"></span>';
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+            }, 3000);
+
+            const name = document.getElementById('wc-name').value || 'Untitled Design';
+            const data = {
+                name,
+                bg: document.getElementById('wc-bg').value,
+                top: document.getElementById('wc-top').value,
+                bot: document.getElementById('wc-bot').value,
+                color: document.getElementById('wc-color').value,
+                border: document.getElementById('wc-border').value,
+                auto: document.getElementById('wc-auto').checked
+            };
+            Storage.save('welcome_cards', data);
+            Utils.toast('Design saved!', 'success');
+            renderSaved();
+        }
+
+        function testSend() {
+            const btn = document.getElementById('btn-test-send');
+            if (btn.disabled) return;
+            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner"></span>';
+
+            Utils.toast('Simulating join event...', 'info');
+
+            setTimeout(() => {
+                Utils.toast('Welcome card sent to #general!', 'success');
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+            }, 1000); // Shorter for test simulation, but still rate limited effectively by the action duration
+        }
+
+        function renderSaved() {
+            const list = document.getElementById('saved-list');
+            const data = Storage.get('welcome_cards');
+            if (!data.length) {
+                list.innerHTML = '<p style="color:var(--text-secondary);font-size:0.9rem;text-align:center;padding:20px">No saved designs yet.</p>';
+                return;
+            }
+            list.innerHTML = '';
+            data.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'saved-item';
+                el.style.cssText = 'padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s;cursor:pointer';
+                el.onclick = (e) => { if (!e.target.closest('button')) loadDesign(item.id) };
+                el.onmouseover = () => el.style.background = 'rgba(255,255,255,0.08)';
+                el.onmouseout = () => el.style.background = 'rgba(255,255,255,0.05)';
+
+                el.innerHTML = `
+                   <div>
+                       <div style="font-weight:600;font-size:0.9rem">${item.name}</div>
+                       <div style="font-size:0.75rem;color:var(--text-secondary)">${item.date}</div>
+                   </div>
+                   <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); Storage.delete('welcome_cards', ${item.id}); renderSaved();" style="padding:4px 8px;border:none;background:transparent"><i data-lucide="trash" size="14"></i></button>
+                `;
+                list.appendChild(el);
+            });
+            lucide.createIcons();
+        }
+
+        function loadDesign(id) {
+            const data = Storage.getOne('welcome_cards', id);
+            if (data) {
+                document.getElementById('wc-name').value = data.name;
+                document.getElementById('wc-bg').value = data.bg;
+                document.getElementById('wc-top').value = data.top;
+                document.getElementById('wc-bot').value = data.bot;
+                document.getElementById('wc-color').value = data.color;
+                document.getElementById('wc-border').value = data.border;
+                document.getElementById('wc-auto').checked = data.auto;
+                bgLoaded = false;
+                bg.src = '';
+                drawCard();
+                Utils.toast('Design loaded!', 'info');
+            }
+        }
+
+        function clearAllDesigns() {
+            if (confirm('Delete all saved designs?')) {
+                Storage.clear('welcome_cards');
+                renderSaved();
+            }
+        }
+
+        function downloadCard() {
+            const link = document.createElement('a');
+            link.download = 'welcome-card.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            Utils.toast('Downloading image...', 'success');
+        }
+
+        function copyImage() {
+            canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
+            Utils.toast('Copied to clipboard!', 'success');
+        }
+
+        // Initial draw — runs immediately, no waiting for images
+        drawCard();
+    </script>
+</body>
+
+</html>
